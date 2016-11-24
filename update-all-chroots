@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -exu
+sudo -v
+
+tmpfile=$(mktemp --tmpdir=/tmp)
+trap 'rm -f "$tmpfile"' EXIT
+
+cat <<_EOF_ > "$tmpfile"
+set -exu
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH
+
+apt-get update
+apt-get dist-upgrade
+apt-get autoremove
+apt-get clean
+_EOF_
+
+for chroot in $(sudo edit-chroot -a); do
+	sudo enter-chroot -n "$chroot" -x sh "$tmpfile"
+done

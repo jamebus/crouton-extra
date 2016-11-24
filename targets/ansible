@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+REQUIRES='core'
+DESCRIPTION='Install Ansible'
+. "${TARGETSDIR:="$PWD"}/common"
+
+### Append to prepare.sh:
+
+install git-core ansible

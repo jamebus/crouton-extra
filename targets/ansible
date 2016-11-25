@@ -18,4 +18,5 @@ playbook='base.yml'
 
 ansible-pull -i 'localhost,' -U "$repo_uri" -C "$checkout" "$playbook"
 _EOF_
+  chmod 0755 /root/run-ansible
 fi

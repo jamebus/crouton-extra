@@ -8,7 +8,7 @@ DESCRIPTION='Install Ansible'
 
 install git-core ansible
 if [ ! -f /root/run-ansible ]; then
-  cat <<_EOF_ > /root/run-ansible
+  cat <<'_EOF_' > /root/run-ansible
 #!/bin/sh
 set -exu
 

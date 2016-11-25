@@ -7,3 +7,15 @@ DESCRIPTION='Install Ansible'
 ### Append to prepare.sh:
 
 install git-core ansible
+if [ ! -f /root/run-ansible ]; then
+  cat <<_EOF_ > /root/run-ansible
+#!/bin/sh
+set -exu
+
+repo_uri='https://github.com/jamebus/ansible'
+checkout='production'
+playbook='base.yml'
+
+ansible-pull -i 'localhost,' -U "$repo_uri" -C "$checkout" "$playbook"
+_EOF_
+fi

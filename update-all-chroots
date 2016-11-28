@@ -17,6 +17,8 @@ apt-get autoremove
 apt-get clean
 
 test -x /root/run-ansible && /root/run-ansible
+
+exit 0
 _EOF_
 
 for chroot in $(sudo edit-chroot -a); do

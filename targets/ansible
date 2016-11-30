@@ -6,7 +6,28 @@ DESCRIPTION='Install Ansible'
 
 ### Append to prepare.sh:
 
-install git-core ansible
+ansible_branch='stable-2.2'
+
+ansible_tmpdir="`mktemp -d crouton-ansible.XXXXXX --tmpdir=/tmp`"
+addtrap "rm -rf --one-file-system '$ansible_tmpdir'"
+
+install git-core
+install --asdeps asciidoc devscripts python-setuptools cdbs \
+                 lsb-release
+
+release=$(lsb_release -cs)
+cd "$ansible_tmpdir"
+git clone --recursive https://github.com/ansible/ansible.git
+cd ansible
+git checkout "$ansible_branch"
+git submodule update
+make DEB_DIST="$release" debian
+mk-build-deps --install \
+              --build-dep deb-build/${release}/ansible-*/debian/control
+make DEB_DIST="$release" local_deb
+install_pkg deb-build/${release}/ansible_*.deb
+dpkg --purge ansible-build-deps-depends
+
 if [ ! -f /root/run-ansible ]; then
   cat <<'_EOF_' > /root/run-ansible
 #!/bin/sh

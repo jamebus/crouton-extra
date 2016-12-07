@@ -13,7 +13,7 @@ addtrap "rm -rf --one-file-system '$ansible_tmpdir'"
 
 install git-core
 install --minimal --asdeps asciidoc build-essential cdbs debhelper devscripts \
-                           dh-python fakeroot lsb-release python \
+                           dh-python fakeroot lintian lsb-release python \
                            python-setuptools xsltproc
 release=$(lsb_release -cs)
 cd "$ansible_tmpdir"

@@ -17,10 +17,9 @@ install --minimal --asdeps asciidoc build-essential cdbs debhelper devscripts \
                            python-setuptools xsltproc
 release=$(lsb_release -cs)
 cd "$ansible_tmpdir"
-git clone --recursive https://github.com/ansible/ansible.git
+git clone --recursive -b "$ansible_branch" \
+          https://github.com/ansible/ansible.git
 cd ansible
-git checkout "$ansible_branch"
-git submodule update
 make DEB_DIST="$release" debian
 make DEB_DIST="$release" local_deb
 install_pkg deb-build/${release}/ansible_*.deb

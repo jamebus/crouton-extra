@@ -33,7 +33,7 @@ repo_uri='https://github.com/jamebus/ansible'
 checkout='production'
 playbook='base.yml'
 
-ansible-pull -i 'localhost,' -U "$repo_uri" -C "$checkout" "$playbook"
+ansible-pull -i 'localhost,' -U "$repo_uri" -C "$checkout" --full "$playbook"
 _EOF_
   chmod 0755 /root/run-ansible
 fi
